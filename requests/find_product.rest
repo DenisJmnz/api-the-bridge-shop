@@ -1,1 +1,1 @@
-GET http://localhost:3001/api/products/C/1
+GET http://localhost:3001/api/products/search?search=C&page=1

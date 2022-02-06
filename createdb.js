@@ -3,7 +3,6 @@ const Product = require('./models/Product.js') //DEVUELVE EL MODELO NOTE
 const Manufacter = require('./models/Manufacter.js') //DEVUELVE EL MODELO NOTE
 const { manufacters, products } = require('./resources/mockDB.js')
 
-console.log("ENTRAMOS EN ENDPOINT")
 //Llenamos coleccion fabricantes
 manufacters.forEach(manufacter => {
     const newManufacter = new Manufacter({

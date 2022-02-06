@@ -1,1 +1,1 @@
-GET http://localhost:3001/api/manufacters/B60258512
+GET http://localhost:3001/api/manufacters/search?cif=B60258512
