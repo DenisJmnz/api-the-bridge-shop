@@ -1,4 +1,5 @@
 const { model, Schema } = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 //Creamos esquema
 const productSchema = new Schema( {
     name: String,
@@ -6,12 +7,11 @@ const productSchema = new Schema( {
     price: Number,
     manufacter: String
 });
-//Creamos modelo
-const Product = model('Product', productSchema);
+
+//Añadimos plugin al esquema para poder realizar paginacion
+productSchema.plugin(mongoosePaginate);
 
 //Modificamos como debe transformar el toJSON del Schema
-/*Delete no es buena práctica en este caso no hay problema porque modificamos 
-el objeto que vamos a devolver no mutamos los datos de la bbdd*/
 productSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id;
@@ -19,4 +19,8 @@ productSchema.set('toJSON', {
         delete returnedObject.__v;
     }
 })
+
+//Creamos modelo
+const Product = model('Product', productSchema);
+
 module.exports = Product;

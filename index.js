@@ -10,22 +10,25 @@ const handleError  = require('./middleware/handleError.js');
 app.use(cors());
 app.use(express.json());
 
-
-app.get('/api/products', (request, response) => {
-  Product.find({}).then(products => {
-    response.json(products);
+app.get('/api/products/:page', (request, response) => {
+  const { page } = request.params || 0;
+  Product.paginate( {}, { page }).then(products => {
+     response.json(products);
   })
 }); 
 
-app.get('/api/products/:search', (request, response) => {
-  
-  const { search } = request.params;
+app.get('/api/products/:search/:page', (request, response) => {
+  const { search, page } = request.params;
   let result = [];
-  Product.find({}).then(products => {
-    result = products.filter(product => product.name.includes(search))
-    response.json(result);
-  })
-  console.log(result);
+  Product.paginate( {}, { page }).then( data => {
+    const docs = data.docs;
+    result = docs.filter(product => product.name.includes(search))
+    if(result.length) {
+      response.json(result)
+    } else {
+      response.status(404).end()
+    }
+  }).catch( err => next(err))
   //  Product.find({ name: new RegExp(`^${search}$`,'i')}).then(products => {
   //   response.json(products);
   // })
@@ -37,20 +40,15 @@ app.get('/api/manufacters', (request, response) => {
   })
 }); 
 
-app.get('/api/manufacters/:id', (request, response, next) => {
-  const { id } = request.params;
-  Manufacter.findById(id).then(manufacter => { //TIENE QUE LLEGAR FORMATO VÁLIDO DE OBJECTID
+app.get('/api/manufacters/:cif', (request, response, next) => {
+  const { cif } = request.params;
+  Manufacter.find({ cif }).then(manufacter => { //TIENE QUE LLEGAR FORMATO VÁLIDO DE OBJECTID
     if(manufacter) {
       response.json(manufacter);
     } else {
       response.status(404).end();
     }
-  }).catch( err => {
-    //HACEMOS NEXT PARA MANDAR EL ERROR AL SIGUIENTE ENDPOINT QUE LO COJA
-    next(err); //AÑADIMOS NEXT PARA QUE VAYA AL SIGUIENTE MIDDLEWARE
-    // console.log(err);
-    // response.status(400).end(); //IMPORTANTE EL END
-  })
+  }).catch( err => next(err))
 });
 
 //MIDDLEWARE PARA ERRORES
