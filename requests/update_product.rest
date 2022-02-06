@@ -1,0 +1,8 @@
+PUT http://localhost:3001/api/products/${id}
+content-type: application/json
+
+{
+  "name": "BMW Z4",
+  "price": 42600,
+  "manufacter": "B60258512",
+}
