@@ -1,12 +1,7 @@
-
 const Manufacter = require('../models/Manufacter.js') //DEVUELVE EL MODELO Product
 
-const getAllManufacters = async (page) => {
-    return await Manufacter.paginate( {}, { page }) 
+const getManufacters = async () => {
+    return await Manufacter.find({}).exec();
 }
 
-const getManufacter = async (search, page) => {
-    return await Manufacter.paginate({ cif: search }, { page }) 
-}
-
-module.exports = { getAllManufacters, getManufacter };
+module.exports = getManufacters;

@@ -1,0 +1,1 @@
+GET http://localhost:3001/api/products?pageN=1&orderField=name&order=-1&manufacterName=AUDI

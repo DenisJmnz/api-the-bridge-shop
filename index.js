@@ -7,12 +7,14 @@ const handleError = require('./middleware/handleError.js');
 const routerProducts = require('./routes/products.js');
 const routerManufacters = require('./routes/manufacters.js');
 
+//GET /api/products?page=1&orderField=Nombre&order=desc&productName=product1&manufacturerName=manu1&operator=or
+
 app.use(cors());
 app.use(express.json());
 
 app.use('/api/products', routerProducts);
 
-app.get('/api/manufacters', routerManufacters);
+app.use('/api/manufacters', routerManufacters);
 
 //MIDDLEWARE PARA ERRORES
 app.use(handleError);

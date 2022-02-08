@@ -1,19 +1,11 @@
 const { Router } = require('express');
 const router = Router();
-const { getAllManufacters, getManufacter } = require('../services/serviceManufacters.js');
+const getManufacters = require('../services/serviceManufacters.js');
 
 router.get('/', async (request, response, next) => {
-    const { page } = request.query;
     try {
-        const { docs } = await getAllManufacters(page);
-        response.json(docs).status(200);
-    } catch (err) { next(err) }
-});
-
-router.get('/search', async (request, response, next) => {
-    const { cif } = request.query;
-    try {
-        const { docs } = await getManufacter(cif);
+        const docs = await getManufacters();
+        console.log(docs);
         response.json(docs).status(200);
     } catch (err) { next(err) }
 });

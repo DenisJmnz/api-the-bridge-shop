@@ -2,27 +2,29 @@ require('./mongo.js'); //PRIMERO IMPORTAMOS PARA LA CONEXIÓN Y LUEGO LAS NOTAS
 const Product = require('./models/Product.js') //DEVUELVE EL MODELO NOTE
 const Manufacter = require('./models/Manufacter.js') //DEVUELVE EL MODELO NOTE
 const { manufacters, products } = require('./resources/mockDB.js')
+const routerProducts = require('./routes/products.js');
+const routerManufacters = require('./routes/manufacters.js');
+const express = require('express');
+const app = express();
+const docs = [];
 
-//Llenamos coleccion fabricantes
-manufacters.forEach(manufacter => {
-    const newManufacter = new Manufacter({
-        name: manufacter.name,
-        cif:  manufacter.cif, 
-        address: manufacter.address
+  //    await Product.deleteMany({});
+    //    await Manufacter.deleteMany({});
+    
+const createdb = async (resquest, response) => {
+    await Product.deleteMany({});
+    await Manufacter.deleteMany({});
+    
+    const newManufacters=await Manufacter.insertMany(manufacters);
+    const newProducts=products.map((product)=>{
+        const manufacter=newManufacters.filter((manufacter)=>manufacter.cif===product.manufacter)[0];
+        const{_id,name}= manufacter;
+        return{
+            ...product,
+            manufacter:{_id,name}
+        }
     })
-    newManufacter.save().then(savedManufacter => {
-        console.log(savedManufacter)
-    }).catch(err => console.error(err));
-});
+    await Product.insertMany(newProducts);
+};
 
-products.forEach(product => {
-    const newProduct = new Product({
-        name: product.name,
-        relevance: Math.floor(Math.random() * (6 - 1) + 1), 
-        price: product.price,
-        manufacter: product.manufacter
-    })
-    newProduct.save().then(savedProduct => {
-        console.log(savedProduct)
-    }).catch(err => console.error(err));
-});
+createdb();
