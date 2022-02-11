@@ -2,9 +2,9 @@ const { model, Schema } = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
 
 //Creamos esquema
-const manufacterSchema = new Schema( {
+const manufacterSchema = new Schema({
     name: String,
-    cif: String, 
+    cif: String,
     address: String
 });
 

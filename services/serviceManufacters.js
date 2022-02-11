@@ -1,5 +1,4 @@
-const Manufacter = require('../models/Manufacter.js') //DEVUELVE EL MODELO Product
-
+const Manufacter = require('../models/Manufacter.js');
 const getManufacters = async () => {
     return await Manufacter.find({}).exec();
 }

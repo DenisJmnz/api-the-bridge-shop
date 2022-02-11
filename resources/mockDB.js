@@ -39,7 +39,7 @@ const products = [
   },
   { 
     'name': 'BMW M2',
-    'manufacter': 'B60258512',
+    'manufacter': 'Q60174112',
     'price': 75650
   },
   { 
@@ -49,7 +49,7 @@ const products = [
   },
   { 
     'name': 'PORSCHE 911 GT3 RS',
-    'manufacter': 'B60258512',
+    'manufacter': 'B60114712',
     'price': 224171
   },
   { 
@@ -64,7 +64,7 @@ const products = [
   },
   { 
     'name': 'BMW M3',
-    'manufacter': 'B60258512',
+    'manufacter': 'Q60174112',
     'price': 111400
   },
   { 
@@ -74,7 +74,7 @@ const products = [
   },
   { 
     'name': 'PORSCHE CAYMAN',
-    'manufacter': 'B60258512',
+    'manufacter': 'B60114712',
     'price': 55600
   },
   { 
@@ -89,7 +89,7 @@ const products = [
   },
   { 
     'name': 'BMW Z4',
-    'manufacter': 'B60258512',
+    'manufacter': 'Q60174112',
     'price': 42600
   },
   { 
@@ -99,7 +99,7 @@ const products = [
   },
   { 
     'name': 'PORSCHE TAYCAN TURBO',
-    'manufacter': 'B60258512',
+    'manufacter': 'B60114712',
     'price': 200567
   },
   { 
@@ -114,7 +114,7 @@ const products = [
   },
   { 
     'name': 'BMW X2 xDrive',
-    'manufacter': 'B60258512',
+    'manufacter': 'Q60174112',
     'price': 60423
   },
   { 
@@ -124,7 +124,7 @@ const products = [
   },
   { 
     'name': 'PORSCHE MACAN GTS',
-    'manufacter': 'B60258512',
+    'manufacter': 'B60114712',
     'price': 72880
   },
 ];

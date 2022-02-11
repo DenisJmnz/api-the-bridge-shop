@@ -3,8 +3,8 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 //Creamos esquema
 const productSchema = new Schema({
     name: String,
-    relevance: Number,
     price: Number,
+    relevance: Number,
     manufacter: {
         _id: { type: Schema.Types.ObjectId, ref: 'Manufacter' }, //DEFINIMOS REFERENCIA A MANUFACTER PASÁNDOLE EL OBJECT ID DEL MANUFACTER PERTINENTE
         name: String

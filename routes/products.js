@@ -1,33 +1,29 @@
 const { Router } = require('express');
 const router = Router();
-const { getProducts, findProductById, findProductByName, findProductsByManufacturer } = require('../services/serviceProducts');
+const { getProducts, findProductById, findProductByName, findProductsByManufacturer, findProductByNameAndManufacturer } = require('../services/serviceProducts');
 
 router.get('/', async (request, response, next) => {
-    let pageN, orderField, order, productName, manufacterName;
-    ({ pageN, orderField, order, productName, manufacterName } = request.query);
+    let pageN, orderField, order, productName, manufacterId;
+    ({ pageN, orderField, order, productName, manufacterId } = request.query);
     let result;
+
+    //Realizaremos consulta en funcion de los params querys
     try {
-        if (!pageN) {
-            pageN = 1;
-        }
-        //page = page || 1;
-        if (!orderField) {
-            orderField = "name";
-        }
-        if (!order) {
-            order = 1;
-        }
-        if (productName && !manufacterName) {
+        pageN = pageN || 1;
+        orderField = orderField || 1;
+        order = order || 1;
+        
+        if (productName && !manufacterId) {
             result = await findProductByName(productName, pageN, orderField, order);
         }
-        if (!productName && manufacterName) {
-            result = await findProductsByManufacturer(manufacterName, pageN, orderField, order)
+        if (!productName && manufacterId) {
+            result = await findProductsByManufacturer(manufacterId, pageN, orderField, order)
         }
-        if (!productName && !manufacterName) {
+        if (!productName && !manufacterId) {
             result = await getProducts(pageN, orderField, order);
         }
-        if (productName && manufacterName) {
-            next("Invalid request");
+        if (productName && manufacterId) {
+            result = await findProductByNameAndManufacturer(productName,manufacterId, pageN, orderField, order);
         }
         const { docs, totalDocs, page, totalPages, nextPage, prevPage } = result;
         response.json({ docs, totalDocs, page, totalPages, nextPage, prevPage }).status(200);
